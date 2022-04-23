@@ -1,0 +1,9 @@
+node_modules
+coverage
+build
+public
+
+# styles & images
+*.css
+*.scss
+*.svg
