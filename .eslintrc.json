@@ -26,6 +26,8 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "linebreak-style":"off",
+        "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": [ 
             "warn", 
             {
