@@ -12,15 +12,17 @@ enum InputType {
     Boolean = 'checkbox',
     Hidden = 'hidden'
 }
-
 function Input<T extends string|number|boolean>(
   {
     value,
     onChangeHandler,
+    ...props
   }:
   { value: T,
     onChangeHandler: InputCallback<T>,
-  },
+  }
+  // eslint-disable-next-line no-undef
+  & React.HTMLAttributes<HTMLDivElement>,
 ) {
   const [inputValue, setInputValue] = useState<T>(value);
   const [hasBeenChanged, setHasBeenChanged] = useState<boolean>(false);
@@ -44,10 +46,26 @@ function Input<T extends string|number|boolean>(
 
   const internalOnChange = (targetElement: HTMLInputElement): void => {
     setHasBeenChanged(true);
-    if (isStringInput()) setInputValue(targetElement.value as T);
-    else if (isNumberInput()) setInputValue(targetElement.valueAsNumber as T);
-    else if (isBooleanInput()) setInputValue(targetElement.checked as T);
-    else setInputValue(targetElement.value as T);
+    if (isStringInput()) {
+      setInputValue(
+        targetElement.value as T,
+      );
+    } else if (isNumberInput()) {
+      setInputValue(
+        (!Number.isNaN(targetElement.valueAsNumber)
+          ? targetElement.valueAsNumber
+          : 0
+        ) as T,
+      );
+    } else if (isBooleanInput()) {
+      setInputValue(
+        targetElement.checked as T,
+      );
+    } else {
+      setInputValue(
+        targetElement.value as T,
+      );
+    }
   };
 
   return (
@@ -56,6 +74,8 @@ function Input<T extends string|number|boolean>(
       value={inputValue as number|string}
       checked={!!inputValue}
       onChange={(e) => { internalOnChange(e.target); }}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
     />
   );
 }
