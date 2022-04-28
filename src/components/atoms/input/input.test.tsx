@@ -43,6 +43,22 @@ describe('[Atom] Input component', () => {
     expect(changeHandlerSpy).toHaveBeenCalledWith(changedInputValue);
   });
 
+  it('Input with boolean value should trigger changeHandler with changed value', () => {
+    const originalInputValue = false;
+    const changedInputValue = true;
+    render(
+      <Router location={history.location} navigator={history}>
+        <Input<boolean> value={originalInputValue} onChangeHandler={changeHandlerSpy} />
+      </Router>,
+    );
+
+    const domInput = screen.getByRole('checkbox');
+    fireEvent.click(domInput);
+
+    expect(changeHandlerSpy).toHaveBeenCalledWith(changedInputValue);
+    expect(typeof changedInputValue).toEqual('boolean');
+  });
+
   it('Input with number value should trigger changeHandler with changed value', () => {
     const originalInputValue = 2;
     const changedInputValue = 3;
@@ -55,6 +71,7 @@ describe('[Atom] Input component', () => {
 
     const domInput = screen.getByDisplayValue(originalInputValue);
     fireEvent.change(domInput, { target: { value: changedInputValue } });
+
     expect(changeHandlerSpy).toHaveBeenCalledWith(changedInputValue);
     expect(typeof changedInputValue).toEqual('number');
   });
