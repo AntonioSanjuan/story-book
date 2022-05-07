@@ -76,7 +76,7 @@ describe('[Atom] Input component', () => {
     expect(typeof changedInputValue).toEqual('number');
   });
 
-  it('Input with number changed with string should trigger changeHandler with 0 (default)', () => {
+  it('Input with number changed with string should trigger changeHandler with NaN (default)', () => {
     const originalInputValue = 2;
     const changedInputValue = 'changedValue';
 
