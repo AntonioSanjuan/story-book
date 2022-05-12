@@ -1,4 +1,4 @@
-import { CustomFormData } from '../../../models/internal/Form/FormData.model';
+import { CustomForm } from '../../../models/internal/Form/FormData.model';
 import FormDataValidator from '../../../models/internal/Form/FormDataValidators.model';
 import Form from '../../molecules/form/form';
 import SCContactUs from './contactUs.style';
@@ -8,9 +8,9 @@ function ContactUs() {
     console.log('input', e);
   };
 
-  const formData: CustomFormData = {
+  const formData: CustomForm = {
     formName: 'first form',
-    formValues: [
+    formInputs: [
       {
         id: 0,
         name: 'email',

@@ -1,7 +1,7 @@
-const enum FormDataValidator {
+const enum FormInputValidator {
     GreaterThanZero = '@validator/greaterThanZero',
     Required = '@Validator/required',
     Email = '@Validator/email'
 }
 
-export default FormDataValidator;
+export default FormInputValidator;

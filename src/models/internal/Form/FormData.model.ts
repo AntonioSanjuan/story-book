@@ -1,14 +1,15 @@
-import FormDataValidator from './FormDataValidators.model';
+import FormInputValidator from './FormDataValidators.model';
 
-export interface CustomFormValue {
+export interface CustomFormInput {
     id: number
     name: string
     value: any
-    validators?: FormDataValidator[]
-    errors?: FormDataValidator[]
+    touched?: boolean
+    validators?: FormInputValidator[]
+    errors?: FormInputValidator[]
 }
 
-export interface CustomFormData {
+export interface CustomForm {
     formName: string,
-    formValues: CustomFormValue[];
+    formInputs: CustomFormInput[];
 }

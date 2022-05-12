@@ -1,36 +1,39 @@
 import { useEffect, useState } from 'react';
-import { CustomFormData, CustomFormValue } from '../../../models/internal/Form/FormData.model';
-import FormDataValidator from '../../../models/internal/Form/FormDataValidators.model';
+import { CustomForm, CustomFormInput } from '../../../models/internal/Form/FormData.model';
+import FormInputValidator from '../../../models/internal/Form/FormDataValidators.model';
 import Input from '../../atoms/input/input';
 import SCForm from './form.style';
 
 interface FormCallback {
     // eslint-disable-next-line no-unused-vars
-    (value: CustomFormData): void;
+    (value: CustomForm): void;
 }
 
 function Form(
   { data, onSubmitHandler, hideSubmitButton }
   :
-  { data: CustomFormData, onSubmitHandler: FormCallback, hideSubmitButton: boolean},
+  { data: CustomForm, onSubmitHandler: FormCallback, hideSubmitButton: boolean},
 ) {
-  const [formEle, setFormEle] = useState<CustomFormData>(data);
+  const [formData, setFormData] = useState<CustomForm>(data);
   const [hasBeenSubmitted, setHasBeenSubmitted] = useState<boolean>(false);
 
-  const isFormValueValidatorValid = (value: any, validator: FormDataValidator): boolean => {
+  const isFormInputValidatorValid = (
+    formValue: CustomFormInput,
+    validator: FormInputValidator,
+  ): boolean => {
     // eslint-disable-next-line no-useless-escape
     const emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     let isValid: boolean;
     switch (validator) {
-      case FormDataValidator.Required:
-        isValid = !!value;
+      case FormInputValidator.Required:
+        isValid = !!formValue.value;
         break;
-      case FormDataValidator.GreaterThanZero:
-        isValid = value > 0;
+      case FormInputValidator.GreaterThanZero:
+        isValid = formValue.value > 0;
         break;
-      case FormDataValidator.Email:
-        isValid = value.match(emailRE);
+      case FormInputValidator.Email:
+        isValid = formValue.value.match(emailRE);
         break;
       default:
         isValid = true;
@@ -39,83 +42,100 @@ function Form(
     return isValid;
   };
 
-  const addFormValueError = (
-    formValue: CustomFormValue,
-    validator: FormDataValidator,
-  ): FormDataValidator[] => (formValue.errors
-    ? [...formValue.errors, validator]
-    : [validator]);
-
-  const isValidForm = (): boolean => {
-    let isValid = true;
-
-    const auxFormValues: CustomFormValue[] = formEle.formValues
-      .map((formValue: CustomFormValue) => {
-        let newFormValue: CustomFormValue = { ...formValue, errors: undefined };
-        formValue.validators?.forEach((validator: FormDataValidator) => {
-          const isFormValueValid = isFormValueValidatorValid(formValue.value, validator);
-          if (!isFormValueValid) {
-            newFormValue = { ...newFormValue, errors: addFormValueError(newFormValue, validator) };
-            isValid = false;
-          }
-        });
-        return newFormValue;
-      });
-    setFormEle({ ...formEle, formValues: auxFormValues });
-    return isValid;
+  const validateFormInput = (formInput: CustomFormInput): CustomFormInput => {
+    const newFormValue: CustomFormInput = { ...formInput, errors: undefined };
+    formInput.validators?.forEach((validator: FormInputValidator) => {
+      const isFormValueValid = isFormInputValidatorValid(formInput, validator);
+      if (!isFormValueValid) {
+        newFormValue.errors = (formInput.errors)
+          ? [...formInput.errors, validator]
+          : [validator];
+      }
+    });
+    return newFormValue;
   };
+
+  const replaceFormInput = (newFormInput: CustomFormInput): CustomFormInput[] => formData.formInputs
+    .map((formInput) => ((newFormInput.name === formInput.name)
+      ? newFormInput : formInput));
+
+  const isValidForm = (): boolean => !formData.formInputs.find((formInput) => !!formInput.errors);
 
   useEffect(() => {
     if (hasBeenSubmitted) {
       if (isValidForm()) {
-        onSubmitHandler(formEle);
+        onSubmitHandler(formData);
         setHasBeenSubmitted(false);
-      } else {
-        // to do
-        console.log('not valid, show erros!');
       }
     }
   }, [hasBeenSubmitted]);
 
-  const getShouldBeSubmitted = (): boolean => (hideSubmitButton);
+  const canBeSubmitted = (): boolean => (hideSubmitButton);
 
-  const findAndReplaceFormEle = (changedEleName: string, changedEleValue: any) => {
-    const foundIndex = formEle.formValues.findIndex((value) => value.name === changedEleName);
-    const auxFormEle = { ...formEle };
-    auxFormEle.formValues[foundIndex] = {
-      ...auxFormEle.formValues[foundIndex],
-      name: changedEleName,
-      value: changedEleValue,
+  const updateFormData = (newFormInputs: CustomFormInput[]): void => {
+    const newFormData: CustomForm = {
+      ...formData,
+      formInputs: newFormInputs,
     };
-    setFormEle(auxFormEle);
+    console.log('newFormData', newFormData);
+    setFormData(newFormData);
   };
 
-  const handleChange = (changedEleName: string, changedEleValue: any) => {
-    findAndReplaceFormEle(changedEleName, changedEleValue);
-    setHasBeenSubmitted(getShouldBeSubmitted());
+  const validateForm = (): void => {
+    const validatedFormInputs = formData.formInputs
+      .map((formInput) => validateFormInput(formInput));
+    updateFormData(validatedFormInputs);
   };
+
+  const changeFormData = (newFormInput: CustomFormInput): void => {
+    const replacedFormInput = replaceFormInput(newFormInput);
+    updateFormData(replacedFormInput);
+  };
+
+  const changeFormInput = (formInputName: string, newFormInputValue: unknown): void => {
+    let auxFormInput = formData.formInputs.find((formInput) => formInput.name === formInputName);
+    if (auxFormInput) {
+      auxFormInput = validateFormInput({
+        ...auxFormInput,
+        touched: true,
+        value: newFormInputValue,
+      });
+      changeFormData(auxFormInput);
+    }
+  };
+
+  const handleChange = (formInputName: string, newFormInputValue: any): void => {
+    changeFormInput(formInputName, newFormInputValue);
+    setHasBeenSubmitted(canBeSubmitted());
+  };
+
+  useEffect(() => {
+    validateForm();
+  }, []);
 
   return (
     <SCForm>
       <form>
-        {formEle.formValues.map((formValue) => (
+        {formData.formInputs.map((formInput) => (
           <div
-            key={formValue.id}
+            key={formInput.id}
           >
             <Input
-              value={formValue.value}
+              name={formInput.name}
+              label={formInput.name}
+              value={formInput.value}
               onChangeHandler={(val) => {
-                handleChange(formValue.name, val);
+                handleChange(formInput.name, val);
               }}
-              placeholder={formValue.name}
+              // placeholder={formValue.name}
             />
-            { }
           </div>
         ))}
         { !hideSubmitButton
         && (
         <button
           type="button"
+          disabled={!isValidForm()}
           onClick={() => {
             setHasBeenSubmitted(true);
           }}
