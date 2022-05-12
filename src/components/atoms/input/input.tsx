@@ -14,11 +14,16 @@ enum InputType {
 }
 function Input<T extends string|number|boolean>(
   {
+    name,
     value,
+    label,
     onChangeHandler,
     ...props
   }:
-  { value: T,
+  {
+    name: string,
+    value: T,
+    label: string,
     onChangeHandler: InputCallback<T>,
   }
   // eslint-disable-next-line no-undef
@@ -69,14 +74,22 @@ function Input<T extends string|number|boolean>(
   };
 
   return (
-    <SCInput
-      type={getInputType()}
-      value={inputValue as number|string}
-      checked={!!inputValue}
-      onChange={(e) => { internalOnChange(e.target); }}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    />
+    <SCInput>
+      <label htmlFor={name}>
+        {label}
+        <input
+          type={getInputType()}
+          id={name}
+          value={inputValue as number|string}
+          checked={!!inputValue}
+          onChange={(e) => { internalOnChange(e.target); }}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...props}
+        />
+      </label>
+
+    </SCInput>
+
   );
 }
 
