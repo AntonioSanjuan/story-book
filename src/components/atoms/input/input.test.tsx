@@ -21,7 +21,7 @@ describe('[Atom] Input component', () => {
   it('should create', () => {
     const { container } = render(
       <Router location={history.location} navigator={history}>
-        <Input<string> value="hola" onChangeHandler={changeHandlerSpy} />
+        <Input<string> name="string Input" label="label" value="hola" onChangeHandler={changeHandlerSpy} />
       </Router>,
     );
 
@@ -34,7 +34,7 @@ describe('[Atom] Input component', () => {
 
     render(
       <Router location={history.location} navigator={history}>
-        <Input<string> value={originalInputValue} onChangeHandler={changeHandlerSpy} />
+        <Input<string> name="string Input" label="label" value={originalInputValue} onChangeHandler={changeHandlerSpy} />
       </Router>,
     );
 
@@ -46,9 +46,10 @@ describe('[Atom] Input component', () => {
   it('Input with boolean value should trigger changeHandler with changed value', () => {
     const originalInputValue = false;
     const changedInputValue = true;
+
     render(
       <Router location={history.location} navigator={history}>
-        <Input<boolean> value={originalInputValue} onChangeHandler={changeHandlerSpy} />
+        <Input<boolean> name="boolean Input" label="label" value={originalInputValue} onChangeHandler={changeHandlerSpy} />
       </Router>,
     );
 
@@ -65,7 +66,7 @@ describe('[Atom] Input component', () => {
 
     render(
       <Router location={history.location} navigator={history}>
-        <Input<number> value={originalInputValue} onChangeHandler={changeHandlerSpy} />
+        <Input<number> name="number Input" label="label" value={originalInputValue} onChangeHandler={changeHandlerSpy} />
       </Router>,
     );
 
@@ -82,7 +83,7 @@ describe('[Atom] Input component', () => {
 
     render(
       <Router location={history.location} navigator={history}>
-        <Input<number> value={originalInputValue} onChangeHandler={changeHandlerSpy} />
+        <Input<number> name="number Input" label="label" value={originalInputValue} onChangeHandler={changeHandlerSpy} />
       </Router>,
     );
 
