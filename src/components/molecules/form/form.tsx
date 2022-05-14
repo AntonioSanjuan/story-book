@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CustomForm, CustomFormInput } from '../../../models/internal/Form/FormData.model';
 import FormInputValidator from '../../../models/internal/Form/FormDataValidators.model';
+import Button from '../../atoms/button/button';
 import Input from '../../atoms/input/input';
 import SCForm from './form.style';
 
@@ -9,10 +10,14 @@ interface FormCallback {
     (value: CustomForm): void;
 }
 
+interface FormProps {
+  data: CustomForm,
+  onSubmitHandler: FormCallback,
+  hideSubmitButton?: boolean
+}
+
 function Form(
-  { data, onSubmitHandler, hideSubmitButton }
-  :
-  { data: CustomForm, onSubmitHandler: FormCallback, hideSubmitButton: boolean},
+  { data, onSubmitHandler, hideSubmitButton = false }:FormProps,
 ) {
   const [formData, setFormData] = useState<CustomForm>(data);
   const [hasBeenSubmitted, setHasBeenSubmitted] = useState<boolean>(false);
@@ -30,10 +35,10 @@ function Form(
         isValid = !!formValue.value;
         break;
       case FormInputValidator.GreaterThanZero:
-        isValid = formValue.value > 0;
+        isValid = formValue.value as any > 0;
         break;
       case FormInputValidator.Email:
-        isValid = formValue.value.match(emailRE);
+        isValid = (formValue.value as any).match(emailRE);
         break;
       default:
         isValid = true;
@@ -77,7 +82,6 @@ function Form(
       ...formData,
       formInputs: newFormInputs,
     };
-    console.log('newFormData', newFormData);
     setFormData(newFormData);
   };
 
@@ -133,16 +137,13 @@ function Form(
         ))}
         { !hideSubmitButton
         && (
-        <button
-          type="button"
+        <Button
+          text="Submit"
           disabled={!isValidForm()}
           onClick={() => {
             setHasBeenSubmitted(true);
           }}
-        >
-          Submit
-        </button>
-
+        />
         )}
       </form>
     </SCForm>

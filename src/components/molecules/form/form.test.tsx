@@ -62,6 +62,23 @@ describe('[Molecule] Form component', () => {
     expect(onSubmitHandler).toHaveBeenCalled();
   });
 
+  it('Form input change should submit on input change', () => {
+    render(
+      <Router location={history.location} navigator={history}>
+        <Form
+          data={formData}
+          onSubmitHandler={onSubmitHandler}
+          hideSubmitButton
+        />
+      </Router>,
+    );
+    expect(onSubmitHandler).not.toHaveBeenCalled();
+
+    const domInput = screen.getByLabelText(formData.formInputs[0].name);
+    fireEvent.change(domInput, { target: { value: 'changed value' } });
+    expect(onSubmitHandler).toHaveBeenCalled();
+  });
+
   it('Form with hideSubmitButton should submit on input change', () => {
     render(
       <Router location={history.location} navigator={history}>

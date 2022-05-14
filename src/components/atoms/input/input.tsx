@@ -6,26 +6,29 @@ interface InputCallback<T> {
     (changedValue: T): void;
 }
 
+interface InputProps<T> {
+  name: string,
+  value: T,
+  label: string,
+  onChangeHandler: InputCallback<T>,
+}
+
 enum InputType {
     Number = 'number',
     String = 'text',
     Boolean = 'checkbox',
     Hidden = 'hidden'
 }
-function Input<T extends string|number|boolean>(
+
+function Input<T extends string|number|boolean|unknown>(
   {
     name,
     value,
     label,
     onChangeHandler,
     ...props
-  }:
-  {
-    name: string,
-    value: T,
-    label: string,
-    onChangeHandler: InputCallback<T>,
-  }
+  }: InputProps<T>
+
   // eslint-disable-next-line no-undef
   & React.HTMLAttributes<HTMLDivElement>,
 ) {

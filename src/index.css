@@ -15,3 +15,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --app-primary-color: white;
+  --app-secondary-color: blue;
+  --app-accent-color: green;
+
+  --app-primary-color-hover: #b7b7b7;
+  --app-secondary-color-hover: #00009c;
+  --app-accent-color-hover: #013a01;
+
+  --app-font-white: #d0d0d0;
+  --app-font-grey: #bebdbd;
+  --app-font-black: black;
+}

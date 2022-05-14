@@ -3,7 +3,7 @@ import FormInputValidator from './FormDataValidators.model';
 export interface CustomFormInput {
     id: number
     name: string
-    value: any
+    value: unknown
     touched?: boolean
     validators?: FormInputValidator[]
     errors?: FormInputValidator[]
