@@ -35,7 +35,7 @@ function Form(
         isValid = !!formValue.value;
         break;
       case FormInputValidator.GreaterThanZero:
-        isValid = formValue.value as any > 0;
+        isValid = formValue.value as number > 0;
         break;
       case FormInputValidator.Email:
         isValid = (formValue.value as any).match(emailRE);
@@ -108,7 +108,7 @@ function Form(
     }
   };
 
-  const handleChange = (formInputName: string, newFormInputValue: any): void => {
+  const handleChange = (formInputName: string, newFormInputValue: unknown): void => {
     changeFormInput(formInputName, newFormInputValue);
     setHasBeenSubmitted(canBeSubmitted());
   };

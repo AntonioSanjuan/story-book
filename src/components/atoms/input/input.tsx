@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SCInput from './input.style';
 
 interface InputCallback<T> {
@@ -28,8 +28,6 @@ function Input<T extends string|number|boolean|unknown>(
     onChangeHandler,
     ...props
   }: InputProps<T>
-
-  // eslint-disable-next-line no-undef
   & React.HTMLAttributes<HTMLDivElement>,
 ) {
   const [inputValue, setInputValue] = useState<T>(value);

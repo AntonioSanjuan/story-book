@@ -1,28 +1,25 @@
 import React from 'react';
-import Colors from '../../../models/internal/Colors/Colors.model';
-import Sizes from '../../../models/internal/Sizes/Sizes.model';
-import SCButton from './button.style';
+import SCButton, { ButtonStyleProps } from './button.style';
 
-interface ButtonProps {
+interface ButtonProps extends ButtonStyleProps {
     text: string
-    color?: keyof Colors
-    size?: keyof Sizes
     icon?: string|undefined
-    props?: unknown
 }
 
-function Button({
-  text,
-  color = 'primary',
-  size = 'small',
-  icon = undefined,
-  props = undefined,
-}:
-    ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+function Button(
+  {
+    text,
+    color,
+    size,
+    icon,
+    ...props
+  }: ButtonProps
+& React.ButtonHTMLAttributes<HTMLButtonElement>,
+) {
   return (
     <SCButton
-      buttonColor={color}
-      buttonSize={size}
+      color={color}
+      size={size}
     >
       <button
         type="button"

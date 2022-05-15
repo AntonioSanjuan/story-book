@@ -1,6 +1,6 @@
 import { CustomForm } from '../../../models/internal/Form/FormData.model';
 import FormDataValidator from '../../../models/internal/Form/FormDataValidators.model';
-// import Button from '../../atoms/button/button';
+import Button from '../../atoms/button/button';
 import Form from '../../molecules/form/form';
 import SCContactUs from './contactUs.style';
 
@@ -42,7 +42,7 @@ function ContactUs() {
         />
       </div>
 
-      {/* <div className="contactUs_ButtonContainer">
+      <div className="contactUs_ButtonContainer">
         <p>by size</p>
         <Button size="big" text="big" onClick={() => {}} />
         <Button size="mid" text="mid" onClick={() => {}} />
@@ -57,7 +57,7 @@ function ContactUs() {
         <Button color="primary" text="primary color" onClick={() => {}} />
         <Button color="secondary" text="secondary color" onClick={() => {}} />
         <Button color="accent" text="accent" onClick={() => {}} />
-      </div> */}
+      </div>
     </SCContactUs>
   );
 }

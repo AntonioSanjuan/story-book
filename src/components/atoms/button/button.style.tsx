@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
-import Colors from '../../../models/internal/Colors/Colors.model';
-import Sizes from '../../../models/internal/Sizes/Sizes.model';
+import Colors from '../../../models/internal/styled-components/Colors/Colors.model';
+import Sizes from '../../../models/internal/styled-components/Sizes/Sizes.model';
 
-interface ButtonStyleProps {
-  buttonColor?: keyof Colors
-  buttonSize?: keyof Sizes
+export interface ButtonStyleProps {
+  color?: keyof Colors
+  size?: keyof Sizes
 }
 
 const bigSize = () => css`
@@ -44,21 +44,28 @@ const fontColors: Partial<Colors> = {
   accent: 'var(--app-font-grey)',
 };
 
-const SCButton = styled.div.attrs<ButtonStyleProps, any>((props: ButtonStyleProps) => ({
-  buttonColor: props.buttonColor,
-  buttonSize: props.buttonSize,
-}))`
+const SCButton = styled.div.attrs<
+ButtonStyleProps, // What is consumed by .attrs()
+Required<ButtonStyleProps> // What comes out of .attrs()
+>((props: ButtonStyleProps) => (
+  {
+    color: props.color ?? 'primary',
+    size: props.size ?? 'small',
+  } as Required<ButtonStyleProps>
+))`
   display:flex;
   place-content: center;
   align-items: center;
 
   button {
+    color: ${(props) => (fontColors[props.color])};
+    background: ${(props) => (backgroundColors[props.color])};
+    ${(props) => (buttonStyles[props.size])};
+    
     :hover {
-      background: ${({ buttonColor }: {buttonColor: keyof Colors }) => (backgroundHoverColors[buttonColor] ?? backgroundHoverColors.primary)};
+      background: ${(props) => (backgroundHoverColors[props.color])};
     }
-    color: ${({ buttonColor }: {buttonColor: keyof Colors }) => (fontColors[buttonColor] ?? fontColors.primary)};
-    background: ${({ buttonColor }: {buttonColor: keyof Colors }) => (backgroundColors[buttonColor] ?? backgroundColors.primary)};
-    ${({ buttonSize }: {buttonSize: keyof Sizes}) => (buttonStyles[buttonSize] ?? buttonStyles.small)};
+
     .button_Container {
       display: flex;
       flex-direction: row;
@@ -71,7 +78,6 @@ const SCButton = styled.div.attrs<ButtonStyleProps, any>((props: ButtonStyleProp
 
     }
   }
-
 `;
 
 export default SCButton;
