@@ -7,9 +7,14 @@ place-content: center;
 align-items: center;
 
 .contactUs_FormContainer{
-    Input {
-        margin-bottom: 15px;
-    }
+    margin-bottom: 15px;
+}
+
+.contactUs_ButtonContainer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
 }
 `;
 

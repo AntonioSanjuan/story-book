@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom';
+import TopNav from '../../components/organisms/topNav/topNav';
 
 function DefaultLayout() {
   return (
     <div className="DefaultLayout_MainContainer">
       <div className="DefaultLayout_HeaderContainer">
-        <p>header</p>
+        <TopNav />
       </div>
       <div className="DefaultLayout_BodyContainer">
         <Outlet />

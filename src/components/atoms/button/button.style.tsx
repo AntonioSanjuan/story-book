@@ -19,28 +19,37 @@ const smallSize = () => css`
   padding: 5px 15px;
 `;
 
-const buttonStyles: Partial<Sizes> = {
+const buttonSizes: Partial<Sizes> = {
   small: smallSize,
   mid: midSize,
   big: bigSize,
-
 };
 
 const backgroundColors: Partial<Colors> = {
+  black: 'var(--app-black-color)',
   primary: 'var(--app-primary-color)',
   secondary: 'var(--app-secondary-color)',
   accent: 'var(--app-accent-color)',
 };
 
 const backgroundHoverColors: Partial<Colors> = {
+  black: 'var(--app-black-color-hover)',
+  primary: 'var(--app-primary-color-hover)',
+  secondary: 'var(--app-secondary-color-hover)',
+  accent: 'var(--app-accent-color-hover)',
+};
+
+const borderColors: Partial<Colors> = {
+  black: 'var(--app-black-color-hover)',
   primary: 'var(--app-primary-color-hover)',
   secondary: 'var(--app-secondary-color-hover)',
   accent: 'var(--app-accent-color-hover)',
 };
 
 const fontColors: Partial<Colors> = {
-  primary: 'var(--app-font-black)',
-  secondary: 'var(--app-font-white)',
+  black: 'var(--app-font-white)',
+  primary: 'var(--app-font-white)',
+  secondary: 'var(--app-font-black)',
   accent: 'var(--app-font-grey)',
 };
 
@@ -56,13 +65,17 @@ Required<ButtonStyleProps> // What comes out of .attrs()
   display:flex;
   place-content: center;
   align-items: center;
-
+  width: fit-content;
+  
   button {
+    border-radius: 5px;
+    border: solid 2px ${(props) => (borderColors[props.color])};
     color: ${(props) => (fontColors[props.color])};
     background: ${(props) => (backgroundColors[props.color])};
-    ${(props) => (buttonStyles[props.size])};
+    ${(props) => (buttonSizes[props.size])};
     
     :hover {
+      cursor: pointer;
       background: ${(props) => (backgroundHoverColors[props.color])};
     }
 
@@ -75,6 +88,12 @@ Required<ButtonStyleProps> // What comes out of .attrs()
       .button_icon {
         margin-right: 5px;
       }
+
+    }
+
+    :disabled {
+      opacity: 0.4;
+      cursor: default;
 
     }
   }

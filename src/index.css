@@ -17,15 +17,17 @@ code {
 }
 
 :root {
-  --app-primary-color: white;
-  --app-secondary-color: blue;
+  --app-black-color: black;
+  --app-primary-color: blue;
+  --app-secondary-color: red;
   --app-accent-color: green;
 
-  --app-primary-color-hover: #b7b7b7;
-  --app-secondary-color-hover: #00009c;
+  --app-black-color-hover: #3e3e3e;
+  --app-primary-color-hover: #00009c;
+  --app-secondary-color-hover: #a00000;
   --app-accent-color-hover: #013a01;
 
-  --app-font-white: #d0d0d0;
-  --app-font-grey: #bebdbd;
+  --app-font-white: #e3e3e3;
+  --app-font-grey: #d0d0d0;
   --app-font-black: black;
 }

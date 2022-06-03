@@ -1,9 +1,11 @@
 import React from 'react';
+import Icons from '../../../models/internal/styled-components/Icons/Icons.model';
+import Icon from '../icons/icon';
 import SCButton, { ButtonStyleProps } from './button.style';
 
 interface ButtonProps extends ButtonStyleProps {
-    text: string
-    icon?: string|undefined
+    text: string,
+    icon?: keyof Icons
 }
 
 function Button(
@@ -22,6 +24,7 @@ function Button(
       size={size}
     >
       <button
+        title={text}
         type="button"
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
@@ -29,7 +32,7 @@ function Button(
         <div className="button_Container">
           {icon && (
             <div className="button_icon">
-              icon
+              <Icon icon={icon} />
             </div>
           )}
           <div className="button_text">
