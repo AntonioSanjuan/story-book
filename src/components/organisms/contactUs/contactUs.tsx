@@ -1,5 +1,6 @@
 import { CustomForm } from '../../../models/internal/Form/FormData.model';
 import FormDataValidator from '../../../models/internal/Form/FormDataValidators.model';
+import { CustomTable } from '../../../models/internal/Table/TableData.model';
 import Button from '../../atoms/button/button';
 import Icon from '../../atoms/icons/icon';
 import Text from '../../atoms/text/text';
@@ -14,6 +15,60 @@ function ContactUs() {
     console.log('input', e);
   };
 
+  const tableData: CustomTable = {
+    tableHeaders: [
+      {
+        name: 'id',
+        options: {
+          hideLessThan: 500,
+        },
+      },
+      { name: 'name' },
+      { name: 'subname' },
+      { name: 'tlf' },
+      { name: 'action' },
+    ],
+    tableRows: [
+      {
+        row: [
+          {
+            value: 0,
+          },
+          {
+            value: 'tony',
+          },
+          {
+            value: 'sanjuan',
+          },
+          {
+            value: 627239365,
+          },
+          {
+            value: <Button text="epa" />,
+          },
+        ],
+      },
+      {
+        row: [
+          {
+            value: 1,
+          },
+          {
+            value: 'name',
+          },
+          {
+            value: 'subname',
+          },
+          {
+            value: 2424242424,
+          },
+          {
+            value: <Button text="epa2" />,
+          },
+        ],
+      },
+    ],
+  };
   const formData: CustomForm = {
     formName: 'first form',
     formInputs: [
@@ -132,7 +187,7 @@ function ContactUs() {
         title="Table"
         icon="apple"
       >
-        <Table />
+        <Table data={tableData} />
       </Card>
       <div className="contactUs_ButtonContainer" />
     </SCContactUs>
