@@ -1,10 +1,15 @@
 import { ReactElement } from 'react';
+import Positions from '../styled-components/Positions/Positions.model';
 
-export interface CustomTableHeaderOptions {
-    hideLessThan?: number|undefined
+interface CustomTableGeneralOptions {
 }
 
-export interface CustomTableRowOptions {
+export interface CustomTableHeaderOptions extends CustomTableGeneralOptions {
+    hideLessThan?: number|undefined
+    position?: keyof Positions
+}
+
+export interface CustomTableRowOptions extends CustomTableGeneralOptions {
     defaultValue?: string|number|boolean|ReactElement|undefined
 }
 

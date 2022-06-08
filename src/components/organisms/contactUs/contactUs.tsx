@@ -20,13 +20,23 @@ function ContactUs() {
       {
         name: 'id',
         options: {
-          hideLessThan: 500,
+          hideLessThan: 700,
         },
       },
-      { name: 'name' },
+      {
+        name: 'name',
+        options: {
+          hideLessThan: 700,
+        },
+      },
       { name: 'subname' },
       { name: 'tlf' },
-      { name: 'action' },
+      {
+        name: 'action',
+        options: {
+          position: 'right',
+        },
+      },
     ],
     tableRows: [
       {
@@ -171,25 +181,30 @@ function ContactUs() {
           <Button color="primary" text="primary color" onClick={printSubmit} />
         </Tooltip>
       </div>
-      <Card
-        title="Icons"
-        icon="apple"
-      >
-        <>
-          <Icon icon="alarm" size="small" color="primary" />
-          <Icon icon="apple" size="mid" color="secondary" />
-          <Icon icon="award" size="big" color="accent" />
 
-        </>
-      </Card>
+      <div className="contactUs_ButtonContainer">
+        <Card
+          title="Icons"
+          icon="apple"
+        >
+          <>
+            <Icon icon="alarm" size="small" color="primary" />
+            <Icon icon="apple" size="mid" color="secondary" />
+            <Icon icon="award" size="big" color="accent" />
 
-      <Card
-        title="Table"
-        icon="apple"
-      >
-        <Table data={tableData} />
-      </Card>
-      <div className="contactUs_ButtonContainer" />
+          </>
+        </Card>
+
+      </div>
+      <div className="contactUs_ButtonContainer">
+        <Card
+          title="Table"
+          icon="apple"
+        >
+          <Table data={tableData} />
+        </Card>
+      </div>
+
     </SCContactUs>
   );
 }

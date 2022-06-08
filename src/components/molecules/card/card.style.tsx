@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const SCCard = styled.div`
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     padding: 10px 30px 30px 30px;
     border-radius: 5px;
