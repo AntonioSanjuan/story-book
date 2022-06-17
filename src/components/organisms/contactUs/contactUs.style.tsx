@@ -16,6 +16,10 @@ align-items: center;
     align-content: center;
     align-items: center;
 }
+
+.contactUs_CardContainer {
+    display: flex
+}
 `;
 
 export default SCContactUs;

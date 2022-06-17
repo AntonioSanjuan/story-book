@@ -103,16 +103,18 @@ function ContactUs() {
   };
   return (
     <SCContactUs>
-      <Card
-        title="Form"
-        icon="apple"
-      >
-        <Form
-          data={formData}
-          onSubmitHandler={printSubmit}
-          hideSubmitButton={false}
-        />
-      </Card>
+      <div className="contactUs_CardContainer">
+        <Card
+          title="Form"
+          icon="apple"
+        >
+          <Form
+            data={formData}
+            onSubmitHandler={printSubmit}
+            hideSubmitButton={false}
+          />
+        </Card>
+      </div>
 
       <div className="contactUs_ButtonContainer">
         <p>by size</p>
@@ -182,7 +184,7 @@ function ContactUs() {
         </Tooltip>
       </div>
 
-      <div className="contactUs_ButtonContainer">
+      <div className="contactUs_CardContainer">
         <Card
           title="Icons"
           icon="apple"
@@ -196,7 +198,7 @@ function ContactUs() {
         </Card>
 
       </div>
-      <div className="contactUs_ButtonContainer">
+      <div className="contactUs_CardContainer">
         <Card
           title="Table"
           icon="apple"

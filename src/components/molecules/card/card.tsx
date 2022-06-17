@@ -15,16 +15,19 @@ function Card({
 }: CardProps) {
   return (
     <SCCard>
-      <div className="Card_Header">
-        <CardHeader
-          title={title}
-          subtitle={subtitle}
-          icon={icon}
-        />
+      <div className="Card_epa">
+        <div className="Card_Header">
+          <CardHeader
+            title={title}
+            subtitle={subtitle}
+            icon={icon}
+          />
+        </div>
+        <div className="Card_content">
+          {children}
+        </div>
       </div>
-      <div className="Card_content">
-        {children}
-      </div>
+
     </SCCard>
   );
 }
