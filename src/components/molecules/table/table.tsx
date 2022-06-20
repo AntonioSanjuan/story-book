@@ -1,16 +1,46 @@
-import { CustomTable, CustomTableRow, CustomTableRowElem } from '../../../models/internal/Table/TableData.model';
+import { useEffect } from 'react';
+import {
+  CustomTable, CustomTableRow, CustomTableRowElem, CustomTableSort,
+} from '../../../models/internal/Table/TableData.model';
 import SCTable from './table.style';
 import Text from '../../atoms/text/text';
+import useTableSort from '../../../hooks/tableSort/useTableSort';
+import Icon from '../../atoms/icons/icon';
+
+interface TableCallback {
+  // eslint-disable-next-line no-unused-vars
+  (value: CustomTableSort): void;
+}
 
 interface TableProps {
   data: CustomTable,
   emptyDataMsg?: string
+  onSort?: TableCallback
 }
 
-function Table({ data, emptyDataMsg }: TableProps) {
+function Table({ data, emptyDataMsg, onSort }: TableProps) {
+  const {
+    sortColumn,
+    getColumnIcon,
+    sortingOptions,
+    hasBeenSorted,
+  } = useTableSort(
+    {
+      activeSortedColumnDirection: data.activeSortedColumnDirection,
+      activeSortedColumnName: data.activeSortedColumnName,
+    },
+  );
+
+  useEffect(() => {
+    if (hasBeenSorted && onSort) {
+      onSort(sortingOptions as CustomTableSort);
+    }
+  }, [sortingOptions]);
+
   return (
     <SCTable
       tableHeaders={data.tableHeaders}
+      sortingOptions={sortingOptions}
     >
       <table>
         {/* Headers */}
@@ -18,7 +48,24 @@ function Table({ data, emptyDataMsg }: TableProps) {
           <thead>
             <tr>
               {data.tableHeaders.map((tableHeader) => (
-                <td>{tableHeader.name}</td>
+                <td
+                  role="gridcell"
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...(
+                    onSort
+                    && !tableHeader.options?.avoidSort
+                    && { onClick: () => { sortColumn(tableHeader.name); } })
+                  }
+                >
+                  <div className="TableTd_Container">
+                    {tableHeader.name}
+                    <div className="TableTd_Icon">
+                      <Icon icon={getColumnIcon(tableHeader.name)} />
+                    </div>
+
+                  </div>
+
+                </td>
               ))}
             </tr>
           </thead>

@@ -1,9 +1,11 @@
 import styled, { css } from 'styled-components';
 import Positions from '../../../models/internal/styled-components/Positions/Positions.model';
-import { CustomTableHeader } from '../../../models/internal/Table/TableData.model';
+import { CustomTableHeader, CustomTableSort } from '../../../models/internal/Table/TableData.model';
 
 export interface TableStyleProps {
     tableHeaders: CustomTableHeader[]
+    sortingOptions: CustomTableSort
+    sortable?: boolean
 }
 
 const leftPosition = css`
@@ -32,9 +34,29 @@ const tableElementPosition: Partial<Positions> = {
 const getMediaQuery = (hideLessThan: number)
 : string => (`${hideLessThan}px`);
 
-const setTableStyles = (tableHeaders: CustomTableHeader[]) => {
+const setTableStyles = (tableHeaders: CustomTableHeader[], sortOptions: CustomTableSort) => {
   let columnStyles = '';
   tableHeaders.forEach((tableHeader, index) => {
+    columnStyles += `
+    thead > tr > td:nth-child(${index + 1}) { 
+      cursor: ${(sortOptions && !tableHeader.options?.avoidSort) ? 'pointer' : 'inherit'};
+
+      .TableTd_Icon {
+        display: ${(sortOptions && !tableHeader.options?.avoidSort) ? 'inherit' : 'none'};
+        width: fit-content;
+        opacity: ${(sortOptions.activeSortedColumnName === tableHeader.name) ? '1 !important' : '0'};
+
+      }
+
+      .TableTd_Container {
+        &:hover {
+          .TableTd_Icon {
+            opacity: 0.5
+          }
+        }
+      }
+    }`;
+
     if (tableHeader.options?.hideLessThan) {
       columnStyles += `
       @media (max-width: ${getMediaQuery(tableHeader.options?.hideLessThan)}) {
@@ -50,25 +72,13 @@ const setTableStyles = (tableHeaders: CustomTableHeader[]) => {
 
     if (tableHeader.options?.position) {
       columnStyles += `
-        thead > tr > td:nth-child(${index + 1}) { ${tableElementPosition[tableHeader.options.position]}; }
+        thead > tr > td:nth-child(${index + 1}) .TableTd_Container{ ${tableElementPosition[tableHeader.options.position]}; }
         tbody > tr > td:nth-child(${index + 1}) { ${tableElementPosition[tableHeader.options.position]}; }
         `;
     }
   });
-  console.log('columnStyles', columnStyles);
   return css`${columnStyles}`;
 };
-
-// const setPositionStyles = (tableHeaders: CustomTableHeader[]) => {
-//   const hiddenStyles = tableHeaders.map((tableHeader, index) => {
-//     if (tableHeader.options?.position) {
-//       return css`
-//       `;
-//     }
-//     return css``;
-//   });
-//   return hiddenStyles;
-// };
 
 const SCTable = styled.div.attrs<
 TableStyleProps, // What is consumed by .attrs()
@@ -87,7 +97,11 @@ Required<TableStyleProps> // What comes out of .attrs()
 
   table {
     width: 100%;
-    ${(props) => setTableStyles(props.tableHeaders)};
+    ${(props) => setTableStyles(props.tableHeaders, props.sortingOptions)};
+  }
+
+  .TableTd_Container {
+    display: flex;
   }
 `;
 

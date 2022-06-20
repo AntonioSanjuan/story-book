@@ -8,9 +8,12 @@ interface IconProps extends ButtonStyleProps {
 }
 
 const iconParser: Icons = {
+  none: 'bi',
   alarm: 'bi bi-alarm',
   apple: 'bi bi-apple',
   award: 'bi bi-award',
+  chevronUp: 'bi bi-chevron-up',
+  chevronDown: 'bi bi-chevron-down',
 };
 
 function Icon({

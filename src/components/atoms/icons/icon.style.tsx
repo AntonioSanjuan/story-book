@@ -41,6 +41,8 @@ Required<ButtonStyleProps> // What comes out of .attrs()
   } as Required<ButtonStyleProps>
 ))`
     i {
+        width: 100%;
+        height: 100%;
         color: ${(props) => (iconColors[props.color])};
         ${(props) => (iconSizes[props.size])};
 

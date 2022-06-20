@@ -1,12 +1,19 @@
 import { ReactElement } from 'react';
 import Positions from '../styled-components/Positions/Positions.model';
+import Sorts from '../styled-components/Sorts/Sorts.model';
+
+export interface CustomTableSort {
+    activeSortedColumnName?: string
+    activeSortedColumnDirection?: keyof Sorts;
+}
 
 interface CustomTableGeneralOptions {
 }
 
 export interface CustomTableHeaderOptions extends CustomTableGeneralOptions {
-    hideLessThan?: number|undefined
+    hideLessThan?: number
     position?: keyof Positions
+    avoidSort?: boolean
 }
 
 export interface CustomTableRowOptions extends CustomTableGeneralOptions {
@@ -27,7 +34,7 @@ export interface CustomTableRow {
     row: CustomTableRowElem[]
 }
 
-export interface CustomTable {
+export interface CustomTable extends CustomTableSort {
     tableHeaders: CustomTableHeader[]
     tableRows: CustomTableRow[]
 }
