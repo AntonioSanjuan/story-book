@@ -57,6 +57,22 @@ const setTableStyles = (tableHeaders: CustomTableHeader[], sortOptions: CustomTa
       }
     }`;
 
+    if (tableHeader.options?.stickyOnScroll) {
+      columnStyles += `
+      thead > tr > td:nth-child(${index + 1}) { 
+        position: sticky; 
+        left: 0;
+        z-index: 2;
+        background-color: white;
+      }
+      tbody > tr > td:nth-child(${index + 1}) { 
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background-color: white;
+      }
+      `;
+    }
     if (tableHeader.options?.hideLessThan) {
       columnStyles += `
       @media (max-width: ${getMediaQuery(tableHeader.options?.hideLessThan)}) {
@@ -90,13 +106,15 @@ Required<TableStyleProps> // What comes out of .attrs()
 )`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   place-content: center;
+  overflow-x: auto;
 
   height: 100%;
 
   table {
     width: 100%;
+    border-spacing: 0;
     ${(props) => setTableStyles(props.tableHeaders, props.sortingOptions)};
   }
 

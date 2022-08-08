@@ -3,6 +3,7 @@
 import { CustomTable } from '../../../models/internal/Table/TableData.model';
 import Button from '../../atoms/button/button';
 // import Icon from '../../atoms/icons/icon';
+// import Icon from '../../atoms/icons/icon';
 // import Text from '../../atoms/text/text';
 // import Tooltip from '../../atoms/tooltip/tooltip';
 import Card from '../../molecules/card/card';
@@ -23,6 +24,7 @@ function ContactUs() {
         name: 'id',
         options: {
           hideLessThan: 700,
+          stickyOnScroll: true,
         },
       },
       {

@@ -13,6 +13,7 @@ interface CustomTableGeneralOptions {
 export interface CustomTableHeaderOptions extends CustomTableGeneralOptions {
     hideLessThan?: number
     position?: keyof Positions
+    stickyOnScroll?: boolean
     avoidSort?: boolean
 }
 

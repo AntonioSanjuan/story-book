@@ -42,7 +42,7 @@ function Table({ data, emptyDataMsg, onSort }: TableProps) {
       tableHeaders={data.tableHeaders}
       sortingOptions={sortingOptions}
     >
-      <table>
+      <table className="table table-responsive">
         {/* Headers */}
         {data.tableHeaders && data.tableHeaders.length > 0 && (
           <thead>
