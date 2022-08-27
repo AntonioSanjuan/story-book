@@ -1,4 +1,9 @@
-.red {
-    background-color: red;
-    color: red;
+.Home_MainSection {
+    display: flex; 
+    flex-direction: column;
+}
+
+section {
+    width: 100%;
+
 }

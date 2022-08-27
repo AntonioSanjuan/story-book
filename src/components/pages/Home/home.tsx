@@ -4,7 +4,9 @@ import './home.css';
 
 function HomePage() {
   return (
-    <ContactUs />
+    <section className="Home_MainSection">
+      <ContactUs />
+    </section>
   );
 }
 
