@@ -23,14 +23,16 @@ function ContactUs() {
       {
         name: 'id',
         options: {
-          hideLessThan: 700,
+          // hideLessThan: 700,
           stickyOnScroll: true,
         },
       },
       {
         name: 'name',
         options: {
-          hideLessThan: 700,
+          // hideLessThan: 700,
+          stickyOnScroll: true,
+
         },
       },
       { name: 'subname' },

@@ -1,0 +1,25 @@
+.DefaultLayout_MainContainer {
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: flex-start;
+    align-items: center;
+}
+
+.DefaultLayout_HeaderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    min-height: var(--app-navbar-height);
+    height: var(--app-navbar-height);
+}
+
+.DefaultLayout_BodyContainer {
+    display: flex;
+    min-height: calc(100vh - var(--app-navbar-height));
+    flex-direction: column;
+    align-items: center;
+
+}
