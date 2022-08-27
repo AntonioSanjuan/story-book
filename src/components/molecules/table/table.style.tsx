@@ -61,13 +61,19 @@ const setTableStyles = (tableHeaders: CustomTableHeader[], sortOptions: CustomTa
       columnStyles += `
       thead > tr > td:nth-child(${index + 1}) { 
         position: sticky; 
-        left: 0;
+        left: ${index * (50)}px;
+        min-width: ${50}px;
+        width: ${50}px;
+        padding: 0;
         z-index: 2;
         background-color: white;
       }
       tbody > tr > td:nth-child(${index + 1}) { 
         position: sticky;
-        left: 0;
+        left: ${index * 50}px;
+        min-width: ${50}px;
+        width: ${50}px;
+        padding: 0;
         z-index: 2;
         background-color: white;
       }

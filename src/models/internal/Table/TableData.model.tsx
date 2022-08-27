@@ -15,6 +15,7 @@ export interface CustomTableHeaderOptions extends CustomTableGeneralOptions {
     position?: keyof Positions
     stickyOnScroll?: boolean
     avoidSort?: boolean
+    width?: number
 }
 
 export interface CustomTableRowOptions extends CustomTableGeneralOptions {

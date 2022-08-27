@@ -25,6 +25,7 @@ function ContactUs() {
         options: {
           // hideLessThan: 700,
           stickyOnScroll: true,
+          width: 50,
         },
       },
       {
@@ -32,10 +33,15 @@ function ContactUs() {
         options: {
           // hideLessThan: 700,
           stickyOnScroll: true,
-
+          width: 100,
         },
       },
-      { name: 'subname' },
+      {
+        name: 'subname',
+        options: {
+          width: 150,
+        },
+      },
       { name: 'tlf' },
       {
         name: 'action',
