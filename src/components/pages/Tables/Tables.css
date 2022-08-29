@@ -1,0 +1,5 @@
+.Tables_MainSection {
+    display: flex; 
+    flex-direction: column;
+}
+

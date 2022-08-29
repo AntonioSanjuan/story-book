@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from './layouts/DefaultLayout/default-layout';
 
 const HomePage = React.lazy(() => import('./components/pages/Home/home'));
-
+const TablePage = React.lazy(() => import('./components/pages/Tables/tables'));
 function App() {
   return (
 
@@ -15,12 +15,20 @@ function App() {
         }
       >
         <Route
-          index
+          path=""
           element={(
             <React.Suspense fallback={<>...</>}>
               <HomePage />
             </React.Suspense>
-      )}
+          )}
+        />
+        <Route
+          path="tables"
+          element={(
+            <React.Suspense fallback={<>...</>}>
+              <TablePage />
+            </React.Suspense>
+          )}
         />
       </Route>
     </Routes>
