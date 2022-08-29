@@ -11,7 +11,7 @@ import Card from '../../molecules/card/card';
 import Table from '../../molecules/table/table';
 import SCContactUs from './contactUs.style';
 
-function ContactUs() {
+function TableExampleWithStickyScroll() {
   // const printSubmit = (e: any) => {
   //   console.log('input', e);
   // };
@@ -58,13 +58,13 @@ function ContactUs() {
             value: 0,
           },
           {
-            value: 'tony',
+            value: 'pepe',
           },
           {
-            value: 'sanjuan',
+            value: 'josefin de la rosa castro mendez',
           },
           {
-            value: 627239365,
+            value: 9999999999,
           },
           {
             value: <Button text="epa" />,
@@ -92,28 +92,6 @@ function ContactUs() {
       },
     ],
   };
-  // const formData: CustomForm = {
-  //   formName: 'first form',
-  //   formInputs: [
-  //     {
-  //       id: 0,
-  //       name: 'email',
-  //       value: '',
-  //       validators: [
-  //         FormDataValidator.Required,
-  //         FormDataValidator.Email,
-  //       ],
-  //     },
-  //     {
-  //       id: 1,
-  //       name: 'edad',
-  //       value: 0,
-  //       validators: [
-  //         FormDataValidator.GreaterThanZero,
-  //       ],
-  //     },
-  //   ],
-  // };
   return (
     <SCContactUs>
       <div className="contactUs_CardContainer">
@@ -132,4 +110,4 @@ function ContactUs() {
   );
 }
 
-export default ContactUs;
+export default TableExampleWithStickyScroll;
