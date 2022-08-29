@@ -5,24 +5,41 @@ import Sizes from '../../../models/internal/styled-components/Sizes/Sizes.model'
 export interface ButtonStyleProps {
   color?: keyof Colors
   size?: keyof Sizes
+  noBorder?: boolean
 }
 
+const fullSize = () => css`
+width: 100%;
+height: 100%;
+button {
+  width: 100%;
+  height: 100%;
+}
+`;
+
 const bigSize = () => css`
+button {
   padding: 12px 35px;
+}
 `;
 
 const midSize = () => css`
+button {
   padding: 10px 25px;
+}
 `;
 
 const smallSize = () => css`
+button {
   padding: 5px 15px;
+}
 `;
 
 const buttonSizes: Partial<Sizes> = {
   small: smallSize,
   mid: midSize,
   big: bigSize,
+  full: fullSize,
 };
 
 const backgroundColors: Partial<Colors> = {
@@ -60,19 +77,20 @@ Required<ButtonStyleProps> // What comes out of .attrs()
   {
     color: props.color ?? 'primary',
     size: props.size ?? 'small',
+    noBorder: props.noBorder ?? false,
   } as Required<ButtonStyleProps>
 ))`
   display:flex;
   place-content: center;
   align-items: center;
   width: fit-content;
+  ${(props) => (buttonSizes[props.size])};
   
   button {
-    border-radius: 5px;
-    border: solid 2px ${(props) => (borderColors[props.color])};
+    border-radius: ${(props) => (props.noBorder ? '0px' : '5px')};
+    border: ${(props) => (props.noBorder ? 'solid 0px black' : `solid 2px ${borderColors[props.color]}`)};
     color: ${(props) => (fontColors[props.color])};
     background: ${(props) => (backgroundColors[props.color])};
-    ${(props) => (buttonSizes[props.size])};
     
     :hover {
       cursor: pointer;

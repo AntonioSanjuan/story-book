@@ -14,6 +14,7 @@ function Button(
     color,
     size,
     icon,
+    noBorder,
     ...props
   }: ButtonProps
 & React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -22,6 +23,7 @@ function Button(
     <SCButton
       color={color}
       size={size}
+      noBorder={noBorder}
     >
       <button
         title={text}
