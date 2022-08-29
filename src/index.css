@@ -1,5 +1,8 @@
 
-html, body,#root { height: 100%; }
+html, body,#root { 
+  height: 100%;
+  width: 100%;
+ }
 
 body {
   margin: 0;
@@ -9,6 +12,11 @@ body {
 
 div {
   width: 100%;
+}
+
+section {
+  width: 80%;
+  margin-bottom: 75px;
 }
 
 :root {
