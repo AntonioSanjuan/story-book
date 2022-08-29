@@ -15,8 +15,8 @@ div {
 }
 
 section {
-  width: 80%;
-  margin-bottom: 75px;
+  width: var(--app-width);
+  margin: 50px 0px;
 }
 
 :root {
@@ -37,5 +37,6 @@ section {
 
 
   /* Sizes */
-  --app-navbar-height: 80px;
+  --app-navbar-height: 60px;
+  --app-width: 80%;
 }
