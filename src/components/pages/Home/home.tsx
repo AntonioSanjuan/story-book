@@ -1,4 +1,4 @@
-import TableExampleWithStickyScroll from '../../organisms/contactUs/tableExampleWithStickyScroll';
+import TableExampleWithStickyScroll from '../../organisms/tableExampleWithStickyScroll/tableExampleWithStickyScroll';
 // import Input from '../../atoms/input/input';
 import './home.css';
 

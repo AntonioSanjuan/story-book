@@ -10,6 +10,9 @@ const SCCardHeader = styled.div`
     .CardHeader_text {
         display: flex;
         align-items: center;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .CardHeader_icon {
