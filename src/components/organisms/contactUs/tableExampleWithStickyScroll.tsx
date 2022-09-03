@@ -9,7 +9,7 @@ import Button from '../../atoms/button/button';
 import Card from '../../molecules/card/card';
 // import Form from '../../molecules/form/form';
 import Table from '../../molecules/table/table';
-import SCContactUs from './contactUs.style';
+import SCContactUs from './tableExampleWithStickyScroll.style';
 
 function TableExampleWithStickyScroll() {
   // const printSubmit = (e: any) => {
@@ -96,7 +96,7 @@ function TableExampleWithStickyScroll() {
     <SCContactUs>
       <div className="contactUs_CardContainer">
         <Card
-          title="Table"
+          title="Table with sticky columns"
           icon="apple"
         >
           <Table
