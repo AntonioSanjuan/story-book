@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
-const SCTableExampleWithStickyScroll = styled.div`
+const SCTableExampleWithSorting = styled.div`
 display:flex;
 flex-direction: column;
 place-content: center;
 align-items: center;
 
-    .tableExampleWithStickyScroll_CardContainer {
+    .tableExampleWithSorting_CardContainer {
         display: flex
     }
 `;
 
-export default SCTableExampleWithStickyScroll;
+export default SCTableExampleWithSorting;

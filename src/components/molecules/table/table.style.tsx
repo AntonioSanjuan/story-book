@@ -9,13 +9,21 @@ export interface TableStyleProps {
 }
 
 const leftPosition = css`
-display: flex;
-justify-content: flex-start;
+text-align: left;
+.TableTd_Container {
+  display: flex;
+  justify-content: flex-start;
+}
 `;
 
 const rightPosition = css`
-display: flex;
-justify-content: flex-end;
+text-align: right;
+  
+> div {
+  display: flex;
+  justify-content: flex-end !important;
+  width: 100% !important;
+}
 `;
 
 const topPosition = css`
@@ -38,9 +46,10 @@ const setTableStyles = (tableHeaders: CustomTableHeader[], sortOptions: CustomTa
   let columnStyles = '';
   tableHeaders.forEach((tableHeader, index) => {
     columnStyles += `
-    thead > tr > td:nth-child(${index + 1}) { 
+    thead > tr > td:nth-child(${index + 1}) {
       cursor: ${(sortOptions && !tableHeader.options?.avoidSort) ? 'pointer' : 'inherit'};
-
+      min-width: ${tableHeader.options?.width ? `${tableHeader.options?.width}px` : 'inherit'};
+      width: ${tableHeader.options?.width ? `${tableHeader.options?.width}px` : 'inherit'};
       .TableTd_Icon {
         display: ${(sortOptions && !tableHeader.options?.avoidSort) ? 'inherit' : 'none'};
         width: fit-content;
@@ -94,7 +103,7 @@ const setTableStyles = (tableHeaders: CustomTableHeader[], sortOptions: CustomTa
 
     if (tableHeader.options?.position) {
       columnStyles += `
-        thead > tr > td:nth-child(${index + 1}) .TableTd_Container{ ${tableElementPosition[tableHeader.options.position]}; }
+        thead > tr > td:nth-child(${index + 1}) { ${tableElementPosition[tableHeader.options.position]}; }
         tbody > tr > td:nth-child(${index + 1}) { ${tableElementPosition[tableHeader.options.position]}; }
         `;
     }

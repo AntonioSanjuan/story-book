@@ -9,54 +9,34 @@ import Button from '../../atoms/button/button';
 import Card from '../../molecules/card/card';
 // import Form from '../../molecules/form/form';
 import Table from '../../molecules/table/table';
-import SCTableExampleWithStickyScroll from './tableExampleWithStickyScroll.style';
+import SCTableExampleWithPosition from './tableExampleWithPosition.style';
 
-function TableExampleWithStickyScroll() {
+function TableExampleWithPosition() {
   // const printSubmit = (e: any) => {
   //   console.log('input', e);
   // };
 
   const tableData: CustomTable = {
-    activeSortedColumnName: 'id',
-    activeSortedColumnDirection: 'asc',
     tableHeaders: [
       {
-        name: 'id',
+        name: 'Partido',
         options: {
-          // hideLessThan: 700,
           avoidSort: true,
-          stickyOnScroll: true,
-          width: 50,
         },
       },
       {
-        name: 'name',
+        name: 'Resultado',
         options: {
-          // hideLessThan: 700,
-          stickyOnScroll: true,
+          position: 'right',
           avoidSort: true,
-          width: 100,
         },
       },
       {
-        name: 'subname',
+        name: 'Acciones',
         options: {
-          width: 250,
+          position: 'right',
           avoidSort: true,
 
-        },
-      },
-      {
-        name: 'tlf',
-        options: {
-          avoidSort: true,
-
-        },
-      },
-      {
-        name: 'action',
-        options: {
-          avoidSort: true,
         },
       },
     ],
@@ -64,48 +44,36 @@ function TableExampleWithStickyScroll() {
       {
         row: [
           {
-            value: 0,
+            value: 'Almeria VS Tenerife',
           },
           {
-            value: 'pepe',
+            value: '* - *',
           },
           {
-            value: 'josefin de la rosa castro mendez',
-          },
-          {
-            value: 9999999999,
-          },
-          {
-            value: <Button text="Ver" />,
+            value: <Button text="Buy ticket" />,
           },
         ],
       },
       {
         row: [
           {
-            value: 1,
+            value: 'Gran Canaria - Murcia',
           },
           {
-            value: 'name',
+            value: '* - *',
           },
           {
-            value: 'subname',
-          },
-          {
-            value: 2424242424,
-          },
-          {
-            value: <Button text="Ver" />,
+            value: <Button text="Buy ticket" />,
           },
         ],
       },
     ],
   };
   return (
-    <SCTableExampleWithStickyScroll>
-      <div className="tableExampleWithStickyScroll_CardContainer">
+    <SCTableExampleWithPosition>
+      <div className="tableExampleWithPosition_CardContainer">
         <Card
-          title="Table with sticky columns"
+          title="Table with positions"
           icon="apple"
         >
           <Table
@@ -115,8 +83,8 @@ function TableExampleWithStickyScroll() {
         </Card>
       </div>
 
-    </SCTableExampleWithStickyScroll>
+    </SCTableExampleWithPosition>
   );
 }
 
-export default TableExampleWithStickyScroll;
+export default TableExampleWithPosition;

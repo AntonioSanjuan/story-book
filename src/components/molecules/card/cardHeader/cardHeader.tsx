@@ -18,8 +18,8 @@ function CardHeader({ title, subtitle, icon }: CardHeaderProps) {
       </div>
       )}
       <div className="CardHeader_text">
-        <b>{title}</b>
-        <Text data={subtitle} />
+        <Text data={title} />
+        <Text type="explanation" data={subtitle} />
       </div>
     </SCCardHeader>
   );

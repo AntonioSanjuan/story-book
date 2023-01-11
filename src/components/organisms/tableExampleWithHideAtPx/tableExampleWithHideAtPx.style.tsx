@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
-const SCTableExampleWithStickyScroll = styled.div`
+const SCTableExampleWithHideAtPx = styled.div`
 display:flex;
 flex-direction: column;
 place-content: center;
 align-items: center;
 
-    .tableExampleWithStickyScroll_CardContainer {
+    .tableExampleWithHideAtPx_CardContainer {
         display: flex
     }
 `;
 
-export default SCTableExampleWithStickyScroll;
+export default SCTableExampleWithHideAtPx;

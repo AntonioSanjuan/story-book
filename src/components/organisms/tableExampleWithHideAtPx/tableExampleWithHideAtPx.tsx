@@ -9,54 +9,32 @@ import Button from '../../atoms/button/button';
 import Card from '../../molecules/card/card';
 // import Form from '../../molecules/form/form';
 import Table from '../../molecules/table/table';
-import SCTableExampleWithStickyScroll from './tableExampleWithStickyScroll.style';
+import SCTableExampleWithHideAtPx from './tableExampleWithHideAtPx.style';
 
-function TableExampleWithStickyScroll() {
+function TableExampleWithHideAtPx() {
   // const printSubmit = (e: any) => {
   //   console.log('input', e);
   // };
 
   const tableData: CustomTable = {
-    activeSortedColumnName: 'id',
-    activeSortedColumnDirection: 'asc',
     tableHeaders: [
       {
-        name: 'id',
+        name: 'Normal column',
         options: {
-          // hideLessThan: 700,
           avoidSort: true,
-          stickyOnScroll: true,
-          width: 50,
         },
       },
       {
-        name: 'name',
+        name: 'Normal column',
         options: {
-          // hideLessThan: 700,
-          stickyOnScroll: true,
           avoidSort: true,
-          width: 100,
         },
       },
       {
-        name: 'subname',
-        options: {
-          width: 250,
-          avoidSort: true,
-
-        },
-      },
-      {
-        name: 'tlf',
+        name: 'Hide once vw is less than 800',
         options: {
           avoidSort: true,
-
-        },
-      },
-      {
-        name: 'action',
-        options: {
-          avoidSort: true,
+          hideLessThan: 800,
         },
       },
     ],
@@ -64,48 +42,36 @@ function TableExampleWithStickyScroll() {
       {
         row: [
           {
-            value: 0,
+            value: 'column0 value',
           },
           {
-            value: 'pepe',
+            value: 'column1 value',
           },
           {
-            value: 'josefin de la rosa castro mendez',
-          },
-          {
-            value: 9999999999,
-          },
-          {
-            value: <Button text="Ver" />,
+            value: <Button text="Action" />,
           },
         ],
       },
       {
         row: [
           {
-            value: 1,
+            value: 'column0 value',
           },
           {
-            value: 'name',
+            value: 'column1 value',
           },
           {
-            value: 'subname',
-          },
-          {
-            value: 2424242424,
-          },
-          {
-            value: <Button text="Ver" />,
+            value: <Button text="Action" />,
           },
         ],
       },
     ],
   };
   return (
-    <SCTableExampleWithStickyScroll>
-      <div className="tableExampleWithStickyScroll_CardContainer">
+    <SCTableExampleWithHideAtPx>
+      <div className="tableExampleWithHideAtPx_CardContainer">
         <Card
-          title="Table with sticky columns"
+          title="Table with column hide at viweWidth less than 800px"
           icon="apple"
         >
           <Table
@@ -115,8 +81,8 @@ function TableExampleWithStickyScroll() {
         </Card>
       </div>
 
-    </SCTableExampleWithStickyScroll>
+    </SCTableExampleWithHideAtPx>
   );
 }
 
-export default TableExampleWithStickyScroll;
+export default TableExampleWithHideAtPx;

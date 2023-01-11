@@ -28,7 +28,7 @@ TextStyleProps, // What is consumed by .attrs()
 Required<TextStyleProps> // What comes out of .attrs()
 >((props: TextStyleProps) => (
   {
-    type: props.type ?? 'normal',
+    type: props.type ?? 'description',
   } as Required<TextStyleProps>
 ))`
     p {
