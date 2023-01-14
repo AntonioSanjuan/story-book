@@ -7,7 +7,8 @@ place-content: center;
 align-items: center;
 
     .tableExampleWithCustomRowHeight_CardContainer {
-        display: flex
+        display: flex;
+        max-width: var(--card-width);
     }
 `;
 

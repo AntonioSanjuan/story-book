@@ -7,7 +7,8 @@ place-content: center;
 align-items: center;
 
     .tableExampleWithSorting_CardContainer {
-        display: flex
+        display: flex;
+        max-width: var(--card-width);
     }
 `;
 
