@@ -7,7 +7,8 @@ interface TextProps extends TextStyleProps {
 function Text({ data, type }: TextProps) {
   return (
     <SCText type={type}>
-      <p title={data}>{ data }</p>
+      {data
+      && <p title={data}>{ data }</p>}
     </SCText>
   );
 }

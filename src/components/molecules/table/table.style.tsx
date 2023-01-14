@@ -4,15 +4,27 @@ import { CustomTableHeader, CustomTableSort } from '../../../models/internal/Tab
 
 export interface TableStyleProps {
     tableHeaders: CustomTableHeader[]
-    sortingOptions: CustomTableSort
-    sortable?: boolean
+    sortingOptions: CustomTableSort,
+    rowHeight: number,
 }
+
+const defaultRowHeight = 30;
+
+const getLeftTdOffset = (tdIndex: number, tableHeaders: CustomTableHeader[]): number => {
+  let tdOffset = 0;
+  for (let td = 0; td < tdIndex; td += 1) {
+    tdOffset += tableHeaders[td].options?.width ?? 0;
+  }
+  return tdOffset * tdIndex;
+};
 
 const leftPosition = css`
 text-align: left;
-.TableTd_Container {
+
+> div {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-start !important;
+  width: 100% !important;
 }
 `;
 
@@ -51,7 +63,8 @@ const setTableStyles = (tableHeaders: CustomTableHeader[], sortOptions: CustomTa
       min-width: ${tableHeader.options?.width ? `${tableHeader.options?.width}px` : 'inherit'};
       width: ${tableHeader.options?.width ? `${tableHeader.options?.width}px` : 'inherit'};
       .TableTd_Icon {
-        display: ${(sortOptions && !tableHeader.options?.avoidSort) ? 'inherit' : 'none'};
+        display: ${(sortOptions && !tableHeader.options?.avoidSort) ? 'flex' : 'none'};
+        align-items: center;
         width: fit-content;
         opacity: ${(sortOptions.activeSortedColumnName === tableHeader.name) ? '1 !important' : '0'};
 
@@ -70,24 +83,25 @@ const setTableStyles = (tableHeaders: CustomTableHeader[], sortOptions: CustomTa
       columnStyles += `
       thead > tr > td:nth-child(${index + 1}) { 
         position: sticky; 
-        left: ${index * (50)}px;
-        min-width: ${50}px;
-        width: ${50}px;
+        left: ${getLeftTdOffset(index, tableHeaders)}px;
+        min-width: ${tableHeader.options.width}px;
+        width: ${tableHeader.options.width}px;
         padding: 0;
         z-index: 2;
         background-color: white;
       }
       tbody > tr > td:nth-child(${index + 1}) { 
         position: sticky;
-        left: ${index * 50}px;
-        min-width: ${50}px;
-        width: ${50}px;
+        left: ${getLeftTdOffset(index, tableHeaders)}px;
+        min-width: ${tableHeader.options.width}px;
+        width: ${tableHeader.options.width}px;
         padding: 0;
         z-index: 2;
         background-color: white;
       }
       `;
     }
+
     if (tableHeader.options?.hideLessThan) {
       columnStyles += `
       @media (max-width: ${getMediaQuery(tableHeader.options?.hideLessThan)}) {
@@ -117,6 +131,8 @@ Required<TableStyleProps> // What comes out of .attrs()
 >(
   (props: TableStyleProps) => ({
     tableHeaders: props.tableHeaders,
+    sortingOptions: props.sortingOptions,
+    rowHeight: props.rowHeight ?? defaultRowHeight,
   } as Required<TableStyleProps>),
 )`
   display: flex;
@@ -131,10 +147,15 @@ Required<TableStyleProps> // What comes out of .attrs()
     width: 100%;
     border-spacing: 0;
     ${(props) => setTableStyles(props.tableHeaders, props.sortingOptions)};
+
+    > tbody > tr {
+      height: ${(props) => props.rowHeight}px;
+    }
   }
 
   .TableTd_Container {
     display: flex;
+    gap: 8px;
   }
 `;
 

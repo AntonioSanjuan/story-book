@@ -7,7 +7,8 @@ export interface CustomTableSort {
     activeSortedColumnDirection?: keyof Sorts;
 }
 
-interface CustomTableGeneralOptions {
+interface CustomTableGeneralOptions extends CustomTableSort {
+    height?: number
 }
 
 export interface CustomTableHeaderOptions extends CustomTableGeneralOptions {
@@ -36,7 +37,7 @@ export interface CustomTableRow {
     row: CustomTableRowElem[]
 }
 
-export interface CustomTable extends CustomTableSort {
+export interface CustomTable extends CustomTableGeneralOptions {
     tableHeaders: CustomTableHeader[]
     tableRows: CustomTableRow[]
 }

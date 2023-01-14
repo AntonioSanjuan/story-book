@@ -3,25 +3,29 @@ import TableExampleWithPosition from '../../organisms/tableExampleWithPosition/t
 import TableExampleWithStickyScroll from '../../organisms/tableExampleWithStickyScroll/tableExampleWithStickyScroll';
 import TableExampleWithSorting from '../../organisms/tableExampleWithSorting/tableExampleWithSorting';
 import TableExampleWithHideAtPx from '../../organisms/tableExampleWithHideAtPx/tableExampleWithHideAtPx';
-// import Input from '../../atoms/input/input';
+import TableExampleWithCustomRowHeight from '../../organisms/tableExampleWithCustomRowHeight/tableExampleWithCustomRowHeight';
 
 function TablesPage() {
   return (
     <>
-      <section className="Table_StickyScroll">
+      <section>
         <TableExampleWithStickyScroll />
       </section>
 
-      <section className="Tables_PositionRightActions">
+      <section>
         <TableExampleWithPosition />
       </section>
 
-      <section className="Tables_Sorting">
+      <section>
         <TableExampleWithSorting />
       </section>
 
-      <section className="Tables_HiddeAt">
+      <section>
         <TableExampleWithHideAtPx />
+      </section>
+
+      <section>
+        <TableExampleWithCustomRowHeight />
       </section>
     </>
 

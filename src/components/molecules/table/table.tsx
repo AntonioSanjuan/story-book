@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   CustomTable, CustomTableRow, CustomTableRowElem, CustomTableSort,
 } from '../../../models/internal/Table/TableData.model';
@@ -40,6 +40,7 @@ function Table({ data, emptyDataMsg, onSort }: TableProps) {
   return (
     <SCTable
       tableHeaders={data.tableHeaders}
+      rowHeight={data.height}
       sortingOptions={sortingOptions}
     >
       <table className="table table-responsive">
@@ -58,7 +59,7 @@ function Table({ data, emptyDataMsg, onSort }: TableProps) {
                   }
                 >
                   <div className="TableTd_Container">
-                    {tableHeader.name}
+                    <Text type="tableHeader" data={tableHeader.name} />
                     <div className="TableTd_Icon">
                       <Icon icon={getColumnIcon(tableHeader.name)} />
                     </div>
@@ -76,7 +77,12 @@ function Table({ data, emptyDataMsg, onSort }: TableProps) {
               {data.tableRows.map((tableRow: CustomTableRow) => (
                 <tr>
                   {tableRow.row.map((rowElement: CustomTableRowElem) => (
-                    <td>{rowElement.value ?? rowElement.options?.defaultValue}</td>
+                    <td>
+                      {(typeof rowElement.value === 'function'
+                    && String(rowElement.value).includes('return React.createElement'))
+                        ? rowElement.value
+                        : <Text type="tableData" data={rowElement.value as string} />}
+                    </td>
                   ))}
                 </tr>
 

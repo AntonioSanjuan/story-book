@@ -3,6 +3,7 @@ import { CustomForm, CustomFormInput } from '../../../models/internal/Form/FormD
 import FormInputValidator from '../../../models/internal/Form/FormDataValidators.model';
 import Button from '../../atoms/button/button';
 import Input from '../../atoms/input/input';
+import Text from '../../atoms/text/text';
 import SCForm from './form.style';
 
 interface FormCallback {
@@ -66,10 +67,15 @@ function Form(
 
   const isValidForm = (): boolean => !formData.formInputs.find((formInput) => !!formInput.errors);
 
+  const hasFormInputValidatorsFail = (formInput: CustomFormInput) : boolean => hasBeenSubmitted
+  && !!formInput.touched
+  && !!formInput.errors;
+
   useEffect(() => {
     if (hasBeenSubmitted) {
+      onSubmitHandler(formData);
+
       if (isValidForm()) {
-        onSubmitHandler(formData);
         setHasBeenSubmitted(false);
       }
     }
@@ -128,18 +134,19 @@ function Form(
               name={formInput.name}
               label={formInput.name}
               value={formInput.value}
+              error={hasFormInputValidatorsFail(formInput)}
               onChangeHandler={(val) => {
                 handleChange(formInput.name, val);
               }}
-              // placeholder={formValue.name}
             />
+            {hasFormInputValidatorsFail(formInput)
+            && <Text type="error" data={formInput.errorMsg} />}
           </div>
         ))}
         { !hideSubmitButton
         && (
         <Button
           text="Submit"
-          disabled={!isValidForm()}
           onClick={() => {
             setHasBeenSubmitted(true);
           }}

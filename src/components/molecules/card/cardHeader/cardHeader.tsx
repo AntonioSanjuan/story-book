@@ -18,7 +18,7 @@ function CardHeader({ title, subtitle, icon }: CardHeaderProps) {
       </div>
       )}
       <div className="CardHeader_text">
-        <Text data={title} />
+        <Text type="description" data={title} />
         <Text type="explanation" data={subtitle} />
       </div>
     </SCCardHeader>

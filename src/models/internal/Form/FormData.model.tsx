@@ -6,6 +6,7 @@ export interface CustomFormInput {
     value: unknown
     touched?: boolean
     validators?: FormInputValidator[]
+    errorMsg?: string
     errors?: FormInputValidator[]
 }
 

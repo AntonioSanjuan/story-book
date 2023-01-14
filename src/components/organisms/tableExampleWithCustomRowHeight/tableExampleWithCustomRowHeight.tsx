@@ -9,35 +9,40 @@ import Button from '../../atoms/button/button';
 import Card from '../../molecules/card/card';
 // import Form from '../../molecules/form/form';
 import Table from '../../molecules/table/table';
-import SCTableExampleWithPosition from './tableExampleWithPosition.style';
+import SCTableExampleWithCustomRowHeight from './tableExampleWithCustomRowHeight.style';
 
-function TableExampleWithPosition() {
-  // const printSubmit = (e: any) => {
-  //   console.log('input', e);
-  // };
-
+function TableExampleWithCustomRowHeight() {
   const tableData: CustomTable = {
+    height: 50,
     tableHeaders: [
       {
-        name: 'Partido',
+        name: 'id',
         options: {
-          position: 'left',
           avoidSort: true,
         },
       },
       {
-        name: 'Resultado',
+        name: 'name',
         options: {
-          position: 'right',
           avoidSort: true,
         },
       },
       {
-        name: 'Acciones',
+        name: 'subname',
         options: {
-          position: 'right',
           avoidSort: true,
-
+        },
+      },
+      {
+        name: 'tlf',
+        options: {
+          avoidSort: true,
+        },
+      },
+      {
+        name: 'action',
+        options: {
+          avoidSort: true,
         },
       },
     ],
@@ -45,36 +50,48 @@ function TableExampleWithPosition() {
       {
         row: [
           {
-            value: 'Almeria VS Tenerife',
+            value: 0,
           },
           {
-            value: '* - *',
+            value: 'pepe',
           },
           {
-            value: <Button text="Buy ticket" />,
+            value: 'manolo',
+          },
+          {
+            value: 9999999999,
+          },
+          {
+            value: <Button text="Ver" />,
           },
         ],
       },
       {
         row: [
           {
-            value: 'Gran Canaria - Murcia',
+            value: 1,
           },
           {
-            value: '* - *',
+            value: 'name',
           },
           {
-            value: <Button text="Buy ticket" />,
+            value: 'subname',
+          },
+          {
+            value: 2424242424,
+          },
+          {
+            value: <Button text="Ver" />,
           },
         ],
       },
     ],
   };
   return (
-    <SCTableExampleWithPosition>
-      <div className="tableExampleWithPosition_CardContainer">
+    <SCTableExampleWithCustomRowHeight>
+      <div className="tableExampleWithCustomRowHeight_CardContainer">
         <Card
-          title="Table with positions"
+          title="Table with custom row height 50px"
           icon="apple"
         >
           <Table
@@ -84,8 +101,8 @@ function TableExampleWithPosition() {
         </Card>
       </div>
 
-    </SCTableExampleWithPosition>
+    </SCTableExampleWithCustomRowHeight>
   );
 }
 
-export default TableExampleWithPosition;
+export default TableExampleWithCustomRowHeight;

@@ -13,7 +13,7 @@ function TopNav() {
         <Button text="Buttons" size="full" noBorder />
         <Button text="Inputs" size="full" noBorder />
         <Button text="Tooltip" size="full" noBorder />
-        <Button text="Forms" size="full" noBorder />
+        <Button text="Forms" size="full" noBorder onClick={() => navigate('/forms')} />
         <Button text="Tables" size="full" noBorder onClick={() => navigate('/tables')} />
       </div>
     </SCTopNav>

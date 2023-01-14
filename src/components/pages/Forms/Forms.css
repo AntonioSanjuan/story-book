@@ -1,0 +1,5 @@
+.Forms_MainSection {
+    display: flex; 
+    flex-direction: column;
+}
+

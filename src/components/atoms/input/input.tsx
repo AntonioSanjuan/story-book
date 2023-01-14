@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import SCInput from './input.style';
+import SCInput, { InputStyleProps } from './input.style';
 
 interface InputCallback<T> {
     // eslint-disable-next-line no-unused-vars
     (changedValue: T): void;
 }
 
-interface InputProps<T> {
+interface InputProps<T> extends InputStyleProps {
   name: string,
   value: T,
   label: string,
@@ -25,6 +25,7 @@ function Input<T extends string|number|boolean|unknown>(
     name,
     value,
     label,
+    error,
     onChangeHandler,
     ...props
   }: InputProps<T>
@@ -75,7 +76,7 @@ function Input<T extends string|number|boolean|unknown>(
   };
 
   return (
-    <SCInput>
+    <SCInput error={error}>
       <label htmlFor={name}>
         {label}
         <input

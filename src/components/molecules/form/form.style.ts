@@ -12,8 +12,15 @@ const SCForm = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-
+        gap: 10px;
         width:100%;
+
+        label {
+            position: inherit;
+            padding: 0;
+            width: 100%;
+            pointer-events: auto;
+        }
     }
 `;
 
