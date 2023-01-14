@@ -128,9 +128,10 @@ describe('[Molecule] Form component', () => {
     expect(onSubmitHandler).toHaveBeenCalled();
   });
 
-  it('Form invalid shold not submit', () => {
+  it('Form invalid shold submit with validatorError response', () => {
+    const inputValue = 'changedValue';
     const formDataWithValidators: CustomForm = {
-      formName: 'form',
+      formName: 'form test',
       formInputs: [
             {
               id: 0,
@@ -154,9 +155,21 @@ describe('[Molecule] Form component', () => {
     expect(onSubmitHandler).not.toHaveBeenCalled();
 
     const domInput = screen.getByLabelText(formData.formInputs[0].name);
-    fireEvent.change(domInput, { target: { value: 'changedValue' } });
+    fireEvent.change(domInput, { target: { value: inputValue } });
     const submitButton = screen.getByRole('button', { name: 'Submit' });
     fireEvent.click(submitButton);
-    expect(onSubmitHandler).not.toHaveBeenCalled();
+    expect(onSubmitHandler).toHaveBeenCalledWith(
+      {
+        ...formDataWithValidators,
+        formInputs: [
+          {
+            ...formDataWithValidators.formInputs[0],
+            touched: true,
+            errors: [FormDataValidator.Email],
+            value: inputValue,
+          },
+        ] as CustomFormInput[],
+      },
+    );
   });
 });

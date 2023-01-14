@@ -48,14 +48,20 @@ function Form(
     return isValid;
   };
 
+  const getFormInputError = (
+    formInputErrors: FormInputValidator[] | undefined,
+    newError: FormInputValidator,
+  ):
+  FormInputValidator[] => (formInputErrors
+    ? [...formInputErrors, newError]
+    : [newError]);
+
   const validateFormInput = (formInput: CustomFormInput): CustomFormInput => {
     const newFormValue: CustomFormInput = { ...formInput, errors: undefined };
     formInput.validators?.forEach((validator: FormInputValidator) => {
       const isFormValueValid = isFormInputValidatorValid(formInput, validator);
       if (!isFormValueValid) {
-        newFormValue.errors = (formInput.errors)
-          ? [...formInput.errors, validator]
-          : [validator];
+        newFormValue.errors = getFormInputError(newFormValue.errors, validator);
       }
     });
     return newFormValue;
