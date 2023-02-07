@@ -96,7 +96,7 @@ describe('[Molecule] Form component', () => {
     expect(onSubmitHandler).toHaveBeenCalled();
   });
 
-  it('Form valid shold submit', () => {
+  it('Form valid should submit', () => {
     const formDataWithValidators: CustomForm = {
       formName: 'form',
       formInputs: [
@@ -105,7 +105,7 @@ describe('[Molecule] Form component', () => {
               name: 'email',
               value: '',
               validators: [
-                FormDataValidator.Required,
+                { validator: FormDataValidator.Email, errorMsg: 'field required' },
               ],
             } as CustomFormInput,
       ],
@@ -128,7 +128,7 @@ describe('[Molecule] Form component', () => {
     expect(onSubmitHandler).toHaveBeenCalled();
   });
 
-  it('Form invalid shold submit with validatorError response', () => {
+  it('Form invalid with email format field shold submit with validatorError response', () => {
     const inputValue = 'changedValue';
     const formDataWithValidators: CustomForm = {
       formName: 'form test',
@@ -138,7 +138,8 @@ describe('[Molecule] Form component', () => {
               name: 'email',
               value: '',
               validators: [
-                FormDataValidator.Email,
+                { validator: FormDataValidator.Email, errorMsg: 'email format not valid' },
+                { validator: FormDataValidator.Required, errorMsg: 'email required' },
               ],
             } as CustomFormInput,
       ],
@@ -165,8 +166,55 @@ describe('[Molecule] Form component', () => {
           {
             ...formDataWithValidators.formInputs[0],
             touched: true,
-            errors: [FormDataValidator.Email],
+            errors: [
+              { validator: FormDataValidator.Email, errorMsg: 'email format not valid' },
+            ],
             value: inputValue,
+          },
+        ] as CustomFormInput[],
+      },
+    );
+  });
+
+  it('Form invalid without email field shold submit with validatorError response', () => {
+    const formDataWithValidators: CustomForm = {
+      formName: 'form test',
+      formInputs: [
+            {
+              id: 0,
+              name: 'email',
+              value: '',
+              validators: [
+                { validator: FormDataValidator.Email, errorMsg: 'email format not valid' },
+                { validator: FormDataValidator.Required, errorMsg: 'email required' },
+              ],
+            } as CustomFormInput,
+      ],
+    };
+    render(
+      <Router location={history.location} navigator={history}>
+        <Form
+          data={formDataWithValidators}
+          onSubmitHandler={onSubmitHandler}
+          hideSubmitButton={false}
+        />
+      </Router>,
+    );
+    expect(onSubmitHandler).not.toHaveBeenCalled();
+
+    const submitButton = screen.getByRole('button', { name: 'Submit' });
+    fireEvent.click(submitButton);
+    expect(onSubmitHandler).toHaveBeenCalledWith(
+      {
+        ...formDataWithValidators,
+        formInputs: [
+          {
+            ...formDataWithValidators.formInputs[0],
+            errors: [
+              { validator: FormDataValidator.Email, errorMsg: 'email format not valid' },
+              { validator: FormDataValidator.Required, errorMsg: 'email required' },
+            ],
+            value: '',
           },
         ] as CustomFormInput[],
       },

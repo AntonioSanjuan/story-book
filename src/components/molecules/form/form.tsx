@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CustomForm, CustomFormInput } from '../../../models/internal/Form/FormData.model';
+import { CustomForm, CustomFormInput, CustomFormInputError } from '../../../models/internal/Form/FormData.model';
 import FormInputValidator from '../../../models/internal/Form/FormDataValidators.model';
 import Button from '../../atoms/button/button';
 import Input from '../../atoms/input/input';
@@ -25,13 +25,13 @@ function Form(
 
   const isFormInputValidatorValid = (
     formValue: CustomFormInput,
-    validator: FormInputValidator,
+    validator: CustomFormInputError,
   ): boolean => {
     // eslint-disable-next-line no-useless-escape
     const emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     let isValid: boolean;
-    switch (validator) {
+    switch (validator.validator) {
       case FormInputValidator.Required:
         isValid = !!formValue.value;
         break;
@@ -49,16 +49,16 @@ function Form(
   };
 
   const getFormInputError = (
-    formInputErrors: FormInputValidator[] | undefined,
-    newError: FormInputValidator,
+    formInputErrors: CustomFormInputError[] | undefined,
+    newError: CustomFormInputError,
   ):
-  FormInputValidator[] => (formInputErrors
+  CustomFormInputError[] => (formInputErrors
     ? [...formInputErrors, newError]
     : [newError]);
 
   const validateFormInput = (formInput: CustomFormInput): CustomFormInput => {
     const newFormValue: CustomFormInput = { ...formInput, errors: undefined };
-    formInput.validators?.forEach((validator: FormInputValidator) => {
+    formInput.validators?.forEach((validator: CustomFormInputError) => {
       const isFormValueValid = isFormInputValidatorValid(formInput, validator);
       if (!isFormValueValid) {
         newFormValue.errors = getFormInputError(newFormValue.errors, validator);
@@ -146,7 +146,11 @@ function Form(
               }}
             />
             {hasFormInputValidatorsFail(formInput)
-            && <Text type="error" data={formInput.errorMsg} />}
+            && (
+            <div>
+              {formInput.errors?.map((formInputError: CustomFormInputError) => <Text key={formInputError.validator} type="error" data={formInputError.errorMsg} />)}
+            </div>
+            )}
           </div>
         ))}
         { !hideSubmitButton

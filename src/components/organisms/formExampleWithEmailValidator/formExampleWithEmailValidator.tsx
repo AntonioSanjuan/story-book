@@ -12,8 +12,9 @@ function FormExampleWithEmailValidator() {
         id: 0,
         name: 'email',
         value: '',
-        errorMsg: 'email not valid',
-        validators: [FormInputValidator.Email],
+        validators: [
+          { validator: FormInputValidator.Email, errorMsg: 'email format not valid' },
+        ],
       },
       {
         id: 1,
